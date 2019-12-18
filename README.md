@@ -19,5 +19,5 @@ Is a simple window manager, did made for be flexible, simple of hack and produti
 
 ## Powered by
 
-- [dwm](http://dwm.suckless.org)
+- [dwm](http://dwm.suckless.org) (On 6.2 version)
 - [xfwm4](http://docs.xfce.org/xfce/xfwm4/start)

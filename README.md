@@ -17,6 +17,23 @@ Is a simple window manager, did made for be flexible, simple of hack and produti
     - A BlackLight menu
     - A BlackLight terminal
 
+## Install
+
+Is just to enter on `path/to/BlackLight/` and run:
+
+```sh
+$ cd BlackLight
+$ make
+```
+
+If you want to install:
+
+```sh
+$ sudo make install
+```
+
+Logout from you atual desktop session and select the BlackLight on menu of you login screen.
+
 ## Powered by
 
 - [dwm](http://dwm.suckless.org) (On 6.2 version)

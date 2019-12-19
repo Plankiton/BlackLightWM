@@ -1,1 +1,4 @@
-blacklight drw.o blacklight.o util.o blacklight-0.0.1.tar.gz
+BlackLight/blacklight
+BlackLight/blacklight.o
+BlackLight/drw.o
+BlackLight/util.o

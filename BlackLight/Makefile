@@ -3,7 +3,7 @@
 
 include config.mk
 
-SRC = drw.c blacklight.c util.c
+SRC = client.c drw.c blacklight.c util.c
 OBJ = ${SRC:.c=.o}
 
 all: options blacklight

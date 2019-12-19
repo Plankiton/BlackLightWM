@@ -1,4 +1,6 @@
 BlackLight/blacklight
-BlackLight/blacklight.o
-BlackLight/drw.o
-BlackLight/util.o
+
+*.o
+*.so
+*.a
+*.out

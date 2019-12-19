@@ -1,4 +1,10 @@
-/* See LICENSE file for copyright and license details. */
+#ifndef __Xlib__
+#include <X11/Xlib.h>
+#define __Xlib__
+#endif
+#include <X11/Xft/Xft.h>
+#include <X11/cursorfont.h>
+
 
 typedef struct {
     Cursor cursor;

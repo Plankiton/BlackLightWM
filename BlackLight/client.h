@@ -2,8 +2,9 @@
 #include <X11/Xlib.h>
 #define __Xlib__
 #endif
-
 #include <X11/Xutil.h>
+
+#include <limits.h>
 #include "maskflags.h"
 
 typedef struct Monitor Monitor;
@@ -61,5 +62,6 @@ typedef struct {
 typedef int TagMask;
 
 void apply_client_rules(Display *, Client *, Rule *, Monitor *, TagMask);
+int apply_client_size_hints(Display *dpy, Client *c, int *x, int *y, int *w, int *h, int interact, int sw, int sh, int bh, int resizehints);
 
 #define broken "broken"

@@ -61,7 +61,13 @@ typedef struct {
 
 typedef int TagMask;
 
+void configure_client(Display *, Client *);
 void apply_client_rules(Display *, Client *, Rule *, Monitor *, TagMask);
-int apply_client_size_hints(Display *dpy, Client *c, int *x, int *y, int *w, int *h, int interact, int sw, int sh, int bh, int resizehints);
+int apply_client_size_hints(Display *, Client *, int *x, int *y, int *w, int *h, int interact, int sw, int sh, int bh, int resizehints);
+void resize_client(Display *, Client *, int *x, int *y, int *w, int *h, int interact, int sw, int sh, int bh, int resizehints);
+void arrange_monitors(Display *, Monitor * monitor, Monitor * list_monitors);
+void arrange_monitor(Monitor *);
+void restack_monitor(Display *, Monitor *);
+void show_hide_client(Display *, Client *);
 
 #define broken "broken"

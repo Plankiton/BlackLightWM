@@ -79,23 +79,13 @@ applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact)
     void
 arrange(Monitor *m)
 {
-    if (m)
-        showhide(m->stack);
-    else for (m = mons; m; m = m->next)
-        showhide(m->stack);
-    if (m) {
-        arrangemon(m);
-        restack(m);
-    } else for (m = mons; m; m = m->next)
-        arrangemon(m);
+    arrange_monitors(dpy, m, mons);
 }
 
     void
 arrangemon(Monitor *m)
 {
-    strncpy(m->ltsymbol, m->lt[m->sellt]->symbol, sizeof m->ltsymbol);
-    if (m->lt[m->sellt]->arrange)
-        m->lt[m->sellt]->arrange(m);
+    arrange_monitor(m);
 }
 
     void
@@ -230,20 +220,7 @@ clientmessage(XEvent *e)
     void
 configure(Client *c)
 {
-    XConfigureEvent ce;
-
-    ce.type = ConfigureNotify;
-    ce.display = dpy;
-    ce.event = c->win;
-    ce.window = c->win;
-    ce.x = c->x;
-    ce.y = c->y;
-    ce.width = c->w;
-    ce.height = c->h;
-    ce.border_width = c->bw;
-    ce.above = None;
-    ce.override_redirect = False;
-    XSendEvent(dpy, c->win, False, StructureNotifyMask, (XEvent *)&ce);
+    configure_client(dpy, c);
 }
 
     void
@@ -964,16 +941,14 @@ recttomon(int x, int y, int w, int h)
     return r;
 }
 
-    void
-resize(Client *c, int x, int y, int w, int h, int interact)
-{
+void
+resize(Client *c, int x, int y, int w, int h, int interact){
     if (applysizehints(c, &x, &y, &w, &h, interact))
-        resizeclient(c, x, y, w, h);
+        resize_client(dpy, c, &x, &y, &w, &h, interact, sw, sh, bh, resizehints);
 }
 
-    void
-resizeclient(Client *c, int x, int y, int w, int h)
-{
+void
+resizeclient(Client *c, int x, int y, int w, int h){
     XWindowChanges wc;
 
     c->oldx = c->x; c->x = wc.x = x;
@@ -982,7 +957,7 @@ resizeclient(Client *c, int x, int y, int w, int h)
     c->oldh = c->h; c->h = wc.height = h;
     wc.border_width = c->bw;
     XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
-    configure(c);
+    configure_client(dpy, c);
     XSync(dpy, False);
 }
 
@@ -1046,26 +1021,8 @@ resizemouse(const Arg *arg)
     void
 restack(Monitor *m)
 {
-    Client *c;
-    XEvent ev;
-    XWindowChanges wc;
-
+    restack_monitor(dpy, m);
     drawbar(m);
-    if (!m->sel)
-        return;
-    if (m->sel->isfloating || !m->lt[m->sellt]->arrange)
-        XRaiseWindow(dpy, m->sel->win);
-    if (m->lt[m->sellt]->arrange) {
-        wc.stack_mode = Below;
-        wc.sibling = m->barwin;
-        for (c = m->stack; c; c = c->snext)
-            if (!c->isfloating && ISVISIBLE(c)) {
-                XConfigureWindow(dpy, c->win, CWSibling|CWStackMode, &wc);
-                wc.sibling = c->win;
-            }
-    }
-    XSync(dpy, False);
-    while (XCheckMaskEvent(dpy, EnterWindowMask, &ev));
 }
 
     void
@@ -1312,19 +1269,7 @@ seturgent(Client *c, int urg)
     void
 showhide(Client *c)
 {
-    if (!c)
-        return;
-    if (ISVISIBLE(c)) {
-        /* show clients top down */
-        XMoveWindow(dpy, c->win, c->x, c->y);
-        if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen)
-            resize(c, c->x, c->y, c->w, c->h, 0);
-        showhide(c->snext);
-    } else {
-        /* hide clients bottom up */
-        showhide(c->snext);
-        XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
-    }
+    show_hide_client(dpy, c);
 }
 
     void

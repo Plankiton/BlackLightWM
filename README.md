@@ -2,7 +2,7 @@
 
 ![BlackLight Icon png](docs/assets/icon.svg)
 
-Is a simple window manager, did made for be flexible, simple of hack and produtive.
+Is a simple window manager, did made for be flexible, customizable and productive.
 
 ## Features
 
@@ -21,14 +21,14 @@ Is a simple window manager, did made for be flexible, simple of hack and produti
 
 ## Install
 
-Is just to enter on `path/to/BlackLight/` and run:
+clone this repository and after is just to enter on `path/to/BlackLight/` and run:
 
 ```sh
 $ cd BlackLight
 $ make
 ```
 
-If you want to install:
+this will to compilate the BlackLight, if you want to install do it:
 
 ```sh
 $ sudo make install
@@ -38,5 +38,4 @@ Logout from you atual desktop session and select the BlackLight on menu of you l
 
 ## Powered by
 
-- [dwm](http://dwm.suckless.org) (On 6.2 version)
-- [xfwm4](http://docs.xfce.org/xfce/xfwm4/start)
+- [dwm](http://dwm.suckless.org)

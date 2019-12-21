@@ -90,7 +90,7 @@ configure_client(Display * dpy, Client * c){
 }
 
 void
-apply_client_rules(Display * dpy, Client *c, Rule * rules, Monitor * mons, TagMask tagmask){
+apply_client_rules(Display * dpy, Client *c, Rule * rules, Monitor * mons, int tagmask){
     const char *class, *instance;
     unsigned int i;
     const Rule *r;

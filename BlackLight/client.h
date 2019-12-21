@@ -59,15 +59,21 @@ typedef struct {
     int monitor;
 } Rule;
 
-typedef int TagMask;
-
 void configure_client(Display *, Client *);
-void apply_client_rules(Display *, Client *, Rule *, Monitor *, TagMask);
-int apply_client_size_hints(Display *, Client *, int *x, int *y, int *w, int *h, int interact, int sw, int sh, int bh, int resizehints);
+
+void attach_client(Client *c);
+void attach_stack_client(Client *c);
+void detach_client(Client *c);
+void detach_stack_client(Client *c);
 void resize_client(Display *, Client *, int *x, int *y, int *w, int *h, int interact, int sw, int sh, int bh, int resizehints);
+void show_hide_client(Display *, Client *);
+
+Monitor * create_monitor(float mfact, int nmaster, int showbar, int topbar, Layout * layouts);
 void arrange_monitors(Display *, Monitor * monitor, Monitor * list_monitors);
 void arrange_monitor(Monitor *);
 void restack_monitor(Display *, Monitor *);
-void show_hide_client(Display *, Client *);
+
+void apply_client_rules(Display *, Client *, Rule *, Monitor *, int tagmask);
+int apply_client_size_hints(Display *, Client *, int *x, int *y, int *w, int *h, int interact, int sw, int sh, int bh, int resizehints);
 
 #define broken "broken"

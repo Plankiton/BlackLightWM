@@ -86,14 +86,12 @@ arrangemon(Monitor *m){
 
 void
 attach(Client *c){
-    c->next = c->mon->clients;
-    c->mon->clients = c;
+    attach_client(c);
 }
 
 void
-attachstack(Client *c){
-    c->snext = c->mon->stack;
-    c->mon->stack = c;
+attachstack(Client * c){
+    attach_stack_client(c);
 }
 
 void
@@ -291,18 +289,7 @@ configurerequest(XEvent *e){
 
 Monitor *
 createmon(void){
-    Monitor *m;
-
-    m = ecalloc(1, sizeof(Monitor));
-    m->tagset[0] = m->tagset[1] = 1;
-    m->mfact = mfact;
-    m->nmaster = nmaster;
-    m->showbar = showbar;
-    m->topbar = topbar;
-    m->lt[0] = &layouts[0];
-    m->lt[1] = &layouts[1 % LENGTH(layouts)];
-    strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
-    return m;
+    return create_monitor(mfact, nmaster, showbar, topbar, layouts);
 }
 
 void
@@ -316,23 +303,12 @@ destroynotify(XEvent *e){
 
 void
 detach(Client *c){
-    Client **tc;
-
-    for (tc = &c->mon->clients; *tc && *tc != c; tc = &(*tc)->next);
-    *tc = c->next;
+    detach_client(c);
 }
 
 void
 detachstack(Client *c){
-    Client **tc, *t;
-
-    for (tc = &c->mon->stack; *tc && *tc != c; tc = &(*tc)->snext);
-    *tc = c->snext;
-
-    if (c == c->mon->sel) {
-        for (t = c->mon->stack; t && !ISVISIBLE(t); t = t->snext);
-        c->mon->sel = t;
-    }
+    detach_stack_client(c);
 }
 
 Monitor *

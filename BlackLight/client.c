@@ -6,56 +6,6 @@
 #endif
 
 void
-attach_client(Client *c){
-    c->next = c->mon->clients;
-    c->mon->clients = c;
-}
-
-void
-attach_stack_client(Client *c){
-    c->snext = c->mon->stack;
-    c->mon->stack = c;
-}
-
-void
-detach_client(Client *c){
-    Client **tc;
-
-    for (tc = &c->mon->clients; *tc && *tc != c; tc = &(*tc)->next);
-    *tc = c->next;
-}
-
-void
-detach_stack_client(Client *c){
-    Client **tc, *t;
-
-    for (tc = &c->mon->stack; *tc && *tc != c; tc = &(*tc)->snext);
-    *tc = c->snext;
-
-    if (c == c->mon->sel) {
-        for (t = c->mon->stack; t && !ISVISIBLE(t); t = t->snext);
-        c->mon->sel = t;
-    }
-}
-
-Monitor *
-create_monitor(float mfact, int nmaster, int showbar, int topbar, Layout * layouts){
-    Monitor *m;
-
-    m = ecalloc(1, sizeof(Monitor));
-    m->tagset[0] = m->tagset[1] = 1;
-    m->mfact = mfact;
-    m->nmaster = nmaster;
-    m->showbar = showbar;
-    m->topbar = topbar;
-    m->lt[0] = &layouts[0];
-    m->lt[1] = &layouts[1 % LENGTH(layouts)];
-    strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
-
-    return m;
-}
-
-void
 resize_client(Display *dpy, Client *c, int *x, int *y, int *w, int *h, int interact, int sw, int sh, int bh, int resizehints){
     if (apply_client_size_hints(dpy, c, x, y, w, h, interact, sw, sh, bh, resizehints)){
         XWindowChanges wc;
@@ -90,7 +40,7 @@ configure_client(Display * dpy, Client * c){
 }
 
 void
-apply_client_rules(Display * dpy, Client *c, Rule * rules, Monitor * mons, int tagmask){
+apply_client_rules(Display * dpy, Client *c, Rule * rules, Monitor * mons, TagMask tagmask){
     const char *class, *instance;
     unsigned int i;
     const Rule *r;

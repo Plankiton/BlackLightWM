@@ -5,18 +5,18 @@
 #include "util.h"
 #endif
 
-    void
+void
 attach_client(Client *c){
     c->next = c->mon->clients;
     c->mon->clients = c;
 }
 
-    void
+void
 attach_stack_client(Client *c){
     c->snext = c->mon->stack;
     c->mon->stack = c;
 }
-    void
+void
 detach_client(Client *c){
     Client **tc;
 
@@ -24,7 +24,7 @@ detach_client(Client *c){
     *tc = c->next;
 }
 
-    void
+void
 detach_stack_client(Client *c){
     Client **tc, *t;
 

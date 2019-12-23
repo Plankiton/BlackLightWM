@@ -5,6 +5,38 @@
 #include "util.h"
 #endif
 
+    void
+attach_client(Client *c){
+    c->next = c->mon->clients;
+    c->mon->clients = c;
+}
+
+    void
+attach_stack_client(Client *c){
+    c->snext = c->mon->stack;
+    c->mon->stack = c;
+}
+    void
+detach_client(Client *c){
+    Client **tc;
+
+    for (tc = &c->mon->clients; *tc && *tc != c; tc = &(*tc)->next);
+    *tc = c->next;
+}
+
+    void
+detach_stack_client(Client *c){
+    Client **tc, *t;
+
+    for (tc = &c->mon->stack; *tc && *tc != c; tc = &(*tc)->snext);
+    *tc = c->snext;
+
+    if (c == c->mon->sel) {
+        for (t = c->mon->stack; t && !ISVISIBLE(t); t = t->snext);
+        c->mon->sel = t;
+    }
+}
+
 void
 resize_client(Display *dpy, Client *c, int *x, int *y, int *w, int *h, int interact, int sw, int sh, int bh, int resizehints){
     if (apply_client_size_hints(dpy, c, x, y, w, h, interact, sw, sh, bh, resizehints)){

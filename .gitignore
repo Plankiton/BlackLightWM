@@ -4,3 +4,4 @@ BlackLight/blacklight
 *.so
 *.a
 *.out
+config.h

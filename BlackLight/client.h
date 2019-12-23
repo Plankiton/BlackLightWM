@@ -61,6 +61,11 @@ typedef struct {
 
 typedef int TagMask;
 
+void attach_client(Client *);
+void attach_stack_client(Client *);
+void detach_client(Client *);
+void detach_stack_client(Client *);
+
 void configure_client(Display *, Client *);
 void apply_client_rules(Display *, Client *, Rule *, Monitor *, TagMask);
 int apply_client_size_hints(Display *, Client *, int *x, int *y, int *w, int *h, int interact, int sw, int sh, int bh, int resizehints);

@@ -1,9 +1,8 @@
 # blwm - stereo window manager
-#   (C)opyright MMVII Anselm R. Garbe
 
 include config.mk
 
-SRC = client.c event.c BlackLight.c util.c view.c
+SRC = client.c event.c blacklight.c util.c view.c
 OBJ = ${SRC:.c=.o}
 
 all: options blwm

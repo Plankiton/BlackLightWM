@@ -1,7 +1,3 @@
-/* (C)opyright MMVI-MMVII Anselm R. Garbe <garbeam at gmail dot com>
- * See LICENSE file for license details.
- */
-
 #define BORDERPX      1
 #define NORMCOLOR      "#333"
 #define SELCOLOR      "#69c"

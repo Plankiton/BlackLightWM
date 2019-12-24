@@ -1,6 +1,3 @@
-/* (C)opyright MMVI-MMVII Anselm R. Garbe <garbeam at gmail dot com>
- * See LICENSE file for license details.
- */
 #include "blwm.h"
 #include <stdarg.h>
 #include <stdio.h>

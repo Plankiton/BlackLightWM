@@ -1,7 +1,3 @@
-/* (C)opyright MMVII Anselm R. Garbe <garbeam at gmail dot com>
- * See LICENSE file for license details.
- */
-
 #include "config.h"
 #include <X11/Xlib.h>
 

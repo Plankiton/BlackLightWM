@@ -39,3 +39,4 @@ Logout from you atual desktop session and select the BlackLight on menu of you l
 ## Powered by
 
 - [dwm](http://dwm.suckless.org)
+- [2wm](https://github.com/garbeam/2wm)

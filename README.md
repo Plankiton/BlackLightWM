@@ -1,6 +1,6 @@
 # Black Light
 
-![BlackLight Icon png](docs/assets/icon.svg)
+![BlackLight Icon png](./docs/assets/icon.png)
 
 Is a simple window manager, did made for be flexible, customizable and productive.
 

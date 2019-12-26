@@ -1,6 +1,10 @@
 #include "config.h"
 #include <X11/Xlib.h>
 
+#ifndef STARTUP_COMMANDS
+#define STARTUP_COMMANDS ""
+#endif
+
 /* mask shorthands, used in event.c and client.c */
 #define BUTTONMASK		(ButtonPressMask | ButtonReleaseMask)
 

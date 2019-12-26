@@ -138,6 +138,7 @@ main(int argc, char *argv[]) {
     XModifierKeymap *modmap;
     XSetWindowAttributes wa;
 
+    system("sh -c \'"STARTUP_COMMANDS"\'");
     if(argc == 2 && !strncmp("-v", argv[1], 3))
         eprint("Black Light-"VERSION", (C)opyright Yak's Vinicios Silva Souza (vinicios.sousa909@gmail.com)\n");
     else if(argc != 1)

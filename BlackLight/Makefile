@@ -24,12 +24,12 @@ config.h:
 	@cp config.default.h $@
 
 blwm: ${OBJ}
-	@echo CC -o $@
+	@echo ${CC} -o $@ ${OBJ} ${LDFLAGS}
 	@${CC} -o $@ ${OBJ} ${LDFLAGS}
 	@strip $@
 
 clean:
-	@echo cleaning
+	@echo removing blwm ${OBJ} blwm-${VERSION}.tar.gz
 	@rm -f blwm ${OBJ} blwm-${VERSION}.tar.gz
 
 dist: clean

@@ -12,7 +12,7 @@ typedef struct {
     Arg arg;
 } Key;
 
-KEYS
+GET_KEYS();
 
 #define CLEANMASK(mask) (mask & ~(numlockmask | LockMask))
 #define MOUSEMASK      (BUTTONMASK | PointerMotionMask)

@@ -1,8 +1,0 @@
-BlackLight/blacklight
-
-*.o
-*.so
-*.a
-*.out
-config.h
-cola

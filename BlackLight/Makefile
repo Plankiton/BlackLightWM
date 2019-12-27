@@ -1,60 +1,57 @@
-# blwm - stereo window manager
+# BlackLight - dynamic window manager
+# See LICENSE file for copyright and license details.
 
 include config.mk
 
-SRC = client.c event.c blacklight.c util.c view.c
+SRC = drw.c BlackLight.c util.c
 OBJ = ${SRC:.c=.o}
 
-all: options blwm
+all: options BlackLight
 
 options:
-	@echo blwm build options:
+	@echo "========================================"
+	@echo BlackLight build options:
 	@echo "CFLAGS   = ${CFLAGS}"
 	@echo "LDFLAGS  = ${LDFLAGS}"
 	@echo "CC       = ${CC}"
+	@echo
+	@echo "========================================"
 
 .c.o:
-	@echo CC $<
-	@${CC} -c ${CFLAGS} $<
+	${CC} -c ${CFLAGS} $<
 
-${OBJ}: blwm.h config.h config.mk
+${OBJ}: config.h config.mk
 
 config.h:
-	@echo creating $@ from config.default.h
-	@cp config.default.h $@
+	cp config.def.h $@
 
-blwm: ${OBJ}
-	@echo ${CC} -o $@ ${OBJ} ${LDFLAGS}
-	@${CC} -o $@ ${OBJ} ${LDFLAGS}
-	@strip $@
+BlackLight: ${OBJ}
+	${CC} -o $@ ${OBJ} ${LDFLAGS}
+	@echo
+	@echo "========================================"
+	@echo "CC -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
-	@echo removing blwm ${OBJ} blwm-${VERSION}.tar.gz
-	@rm -f blwm ${OBJ} blwm-${VERSION}.tar.gz
+	rm -f BlackLight ${OBJ} BlackLight-${VERSION}.tar.gz
 
 dist: clean
-	@echo creating dist tarball
-	@mkdir -p blwm-${VERSION}
-	@cp -R LICENSE Makefile README config.*.h config.mk \
-	    blwm.1 blwm.h ${SRC} blwm-${VERSION}
-	@tar -cf blwm-${VERSION}.tar blwm-${VERSION}
-	@gzip blwm-${VERSION}.tar
-	@rm -rf blwm-${VERSION}
+	mkdir -p BlackLight-${VERSION}
+	cp -R LICENSE Makefile README config.def.h config.mk\
+	    BlackLight.1 drw.h util.h ${SRC} BlackLight.png transient.c BlackLight-${VERSION}
+	tar -cf BlackLight-${VERSION}.tar BlackLight-${VERSION}
+	gzip BlackLight-${VERSION}.tar
+	rm -rf BlackLight-${VERSION}
 
 install: all
-	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
-	@mkdir -p ${DESTDIR}${PREFIX}/bin
-	@cp -f blwm ${DESTDIR}${PREFIX}/bin
-	@chmod 755 ${DESTDIR}${PREFIX}/bin/blwm
-	@echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
-	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	@sed 's/VERSION/${VERSION}/g' < blwm.1 > ${DESTDIR}${MANPREFIX}/man1/blwm.1
-	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/blwm.1
+	mkdir -p ${DESTDIR}${PREFIX}/bin
+	cp -f BlackLight ${DESTDIR}${PREFIX}/bin
+	chmod 755 ${DESTDIR}${PREFIX}/bin/BlackLight
+	mkdir -p ${DESTDIR}${MANPREFIX}/man1
+	sed "s/VERSION/${VERSION}/g" < BlackLight.1 > ${DESTDIR}${MANPREFIX}/man1/BlackLight.1
+	chmod 644 ${DESTDIR}${MANPREFIX}/man1/BlackLight.1
 
 uninstall:
-	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
-	@rm -f ${DESTDIR}${PREFIX}/bin/blwm
-	@echo removing manual page from ${DESTDIR}${MANPREFIX}/man1
-	@rm -f ${DESTDIR}${MANPREFIX}/man1/blwm.1
+	rm -f ${DESTDIR}${PREFIX}/bin/BlackLight\
+	    ${DESTDIR}${MANPREFIX}/man1/BlackLight.1
 
 .PHONY: all options clean dist install uninstall

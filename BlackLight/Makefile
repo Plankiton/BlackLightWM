@@ -6,7 +6,7 @@ include config.mk
 SRC = drw.c blacklight.c util.c
 OBJ = ${SRC:.c=.o}
 
-all: options BlackLight
+all: options BlackLight clean
 
 options:
 	@echo "========================================"
@@ -26,10 +26,9 @@ config.h:
 
 BlackLight: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
-	@echo
 
 clean:
-	rm -f BlackLight ${OBJ} BlackLight-${VERSION}.tar.gz
+	rm -f config.h ${OBJ} BlackLight-${VERSION}.tar.gz
 
 dist: clean
 	mkdir -p BlackLight-${VERSION}

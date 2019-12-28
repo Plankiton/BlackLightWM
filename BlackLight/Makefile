@@ -6,6 +6,9 @@ include config.mk
 SRC = drw.c blacklight.c util.c
 OBJ = ${SRC:.c=.o}
 
+SRCT = drw.c blwm.c util.c
+OBJT = ${SRC:.c=.o}
+
 all: options BlackLight clean
 
 options:
@@ -26,6 +29,9 @@ config.h:
 
 BlackLight: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
+
+test: ${OBJT}
+	${CC} -o $@ ${OBJT} ${LDFLAGS}
 
 clean:
 	rm -f config.h ${OBJ} BlackLight-${VERSION}.tar.gz

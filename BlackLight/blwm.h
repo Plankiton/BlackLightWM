@@ -60,8 +60,17 @@ typedef struct {
     const Arg arg;
 } Button;
 
-typedef struct Monitor Monitor;
+typedef struct {
+    const char *class;
+    const char *instance;
+    const char *title;
+    unsigned int tags;
+    int isfloating;
+    int monitor;
+} Rule;
+
 typedef struct Client Client;
+typedef struct Monitor Monitor;
 struct Client {
     char name[256];
     float mina, maxa;
@@ -77,12 +86,6 @@ struct Client {
     Window win;
 };
 
-typedef struct {
-    unsigned int mod;
-    KeySym keysym;
-    void (*func)(const Arg *);
-    const Arg arg;
-} Key;
 
 typedef struct {
     const char *symbol;
@@ -111,13 +114,11 @@ struct Monitor {
 };
 
 typedef struct {
-    const char *class;
-    const char *instance;
-    const char *title;
-    unsigned int tags;
-    int isfloating;
-    int monitor;
-} Rule;
+    unsigned int mod;
+    KeySym keysym;
+    void (*func)(const Arg *);
+    const Arg arg;
+} Key;
 
 /* function declarations */
 static void applyrules(Client *c);
@@ -212,3 +213,4 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void zoom(const Arg *arg);
 
+#define broken "broken";

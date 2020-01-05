@@ -24,7 +24,6 @@
 #include "blwm.h"
 
 /* variables */
-static const char broken[] = "broken";
 static char stext[256];
 static int screen;
 static int sw, sh;           /* X display screen geometry width, height */

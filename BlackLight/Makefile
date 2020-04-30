@@ -6,7 +6,7 @@ include config.mk
 SRC = drw.c blacklight.c util.c
 OBJ = ${SRC:.c=.o}
 
-SRCT = drw.c blwm.c util.c
+SRCT = drw.c blwm.c util.c bar.c
 OBJT = ${SRC:.c=.o}
 
 all: options BlackLight clean
@@ -23,6 +23,7 @@ options:
 	${CC} -c ${CFLAGS} $<
 
 ${OBJ}: config.h config.mk
+${OBJT}: config.h config.mk
 
 config.h:
 	cp config.def.h $@

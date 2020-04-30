@@ -28,20 +28,22 @@ item_action_draw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, ..
 }
 
 Item * create_item(Clr * scheme, Type type){
-    Item item = (Item){
+    Item * item = calloc(1, sizeof(Item));
+    *item = (Item){
         .scheme = scheme,
         .type = type,
     };
 
-    if (item.type == Rect)
-        item.action = item_action_draw_rect;
+    // Drw *drw = ecalloc(1, sizeof(Drw));
+    if (item->type == Rect)
+        item->action = item_action_draw_rect;
     else
-        item.action = item_action_draw_text;
+        item->action = item_action_draw_text;
 
-    return &item;
+    return item;
 }
 
 void
-drawbar(Item *items){
+draw_bar(Item *items){
 
 }

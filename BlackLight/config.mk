@@ -2,6 +2,7 @@
 VERSION = 0.0.1
 
 # Customize below to fit your system
+DRWFLAGS = -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -lX11 -lXft
 
 # paths
 PREFIX = /usr/local

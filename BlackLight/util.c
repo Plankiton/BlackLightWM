@@ -1,51 +1,34 @@
-#include "blwm.h"
+/* See LICENSE file for copyright and license details. */
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#include <string.h>
 
-/* extern */
+#include "util.h"
 
 void *
-emallocz(unsigned int size) {
-    void *res = calloc(1, size);
+ecalloc(size_t nmemb, size_t size){
+    void *p;
 
-    if(!res)
-        eprint("fatal: could not malloc() %u bytes\n", size);
-    return res;
+    if (!(p = calloc(nmemb, size)))
+        die("calloc:");
+    return p;
 }
 
 void
-eprint(const char *errstr, ...) {
+die(const char *fmt, ...) {
     va_list ap;
 
-    va_start(ap, errstr);
-    vfprintf(stderr, errstr, ap);
+    va_start(ap, fmt);
+    vfprintf(stderr, fmt, ap);
     va_end(ap);
-    exit(EXIT_FAILURE);
-}
 
-void
-spawn(Arg *arg) {
-    static char *shell = NULL;
-
-    if(!shell && !(shell = getenv("SHELL")))
-        shell = "/bin/sh";
-    if(!arg->cmd)
-        return;
-    /* The double-fork construct avoids zombie processes and keeps the code
-     * clean from stupid signal handlers. */
-    if(fork() == 0) {
-        if(fork() == 0) {
-            if(dpy)
-                close(ConnectionNumber(dpy));
-            setsid();
-            execl(shell, shell, "-c", arg->cmd, (char *)NULL);
-            fprintf(stderr, "Black Light: execl '%s -c %s'", shell, arg->cmd);
-            perror(" failed");
-        }
-        exit(0);
+    if (fmt[0] && fmt[strlen(fmt)-1] == ':') {
+        fputc(' ', stderr);
+        perror(NULL);
+    } else {
+        fputc('\n', stderr);
     }
-    wait(0);
+
+    exit(1);
 }
